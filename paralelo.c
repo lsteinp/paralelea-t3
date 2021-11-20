@@ -72,13 +72,13 @@ int main(int argc, char** argv)
     else {
         printf("\nentrou filho");
         if (id % 2){
-            prinft("id percent 2");
+            printf("id percent 2");
             pai = (id - 1)/2;
         } else {
-            prinft("else");
+            printf("else");
             pai = (id - 2)/2;
         }
-        prinft("passou do pai");
+        printf("passou do pai");
         printf("meu pai: %d", pai);
         printf("\nsou filho, id: %d , meu pai eh: %d", id, pai);
         MPI_Recv(vetor, tam_vetor, MPI_INT, pai, 2, MPI_COMM_WORLD, &Status);
