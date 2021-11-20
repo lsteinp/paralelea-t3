@@ -62,8 +62,6 @@ int main(int argc, char** argv)
     MPI_Comm_rank(MPI_COMM_WORLD, &id);
     MPI_Comm_size(MPI_COMM_WORLD, &n);
 
-    delta = n/
-
     if (id == 0) { //Raiz
         for (i=0 ; i<tam_vetor; i++)              /* init array with worst case for sorting */
             vetor[i] = tam_vetor-i;
