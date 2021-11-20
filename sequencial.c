@@ -3,7 +3,7 @@
 #include "mpi.h"
 
 #define DEBUG 1            // comentar esta linha quando for medir tempo
-#define ARRAY_SIZE 200000      // trabalho final com o valores 10000, 100000, 1000000
+#define ARRAY_SIZE 10000      // trabalho final com o valores 10000, 100000, 1000000
 
 void bs(int n, int * vetor)
 {
