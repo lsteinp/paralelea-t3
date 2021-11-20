@@ -31,6 +31,7 @@ int main(int argc, char** argv)
     int id;            /* Identificador do processo */
     int n;             /* Numero de processos */
     double time;
+    time1 = MPI_Wtime();
 
     for (i=0 ; i<ARRAY_SIZE; i++)              /* init array with worst case for sorting */
         vetor[i] = ARRAY_SIZE-i;
@@ -54,9 +55,10 @@ int main(int argc, char** argv)
         printf("[%03d] ", vetor[i]);
     #endif
 
-    time += MPI_Wtime();
+
+    time2 = MPI_Wtime();
     printf("\nsize: %d", ARRAY_SIZE);
-    printf("\ntime: %f\n", MPI_Wtime());
+    printf("\ntime: %f\n", time2-time1);
 
     MPI_Finalize();
     return 0;
