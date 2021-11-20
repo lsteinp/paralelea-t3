@@ -105,10 +105,10 @@ int main(int argc, char** argv)
     }
     if ( id !=0 ){
         if (leaf){ // sou folha, manda o array que ordenei
-        printf("\nsou folha: %d,retornando array ordenado para: %d", id, pai);
+        printf("\nsou folha: %d,retornando array ordenado para: %d\n", id, pai);
             MPI_Send(&vetor, tam, MPI_INT, pai, 2, MPI_COMM_WORLD);
         } else { // nao sou folha, mando o array intercalado
-            printf("\nnao sou folha: %d,retornando array ordenado para: %d", id, pai);
+            printf("\nnao sou folha: %d,retornando array ordenado para: %d\n", id, pai);
             MPI_Send(&vetor_auxiliar, tam, MPI_INT, pai, 2, MPI_COMM_WORLD);
         }
     }
