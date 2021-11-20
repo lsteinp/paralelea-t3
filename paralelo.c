@@ -3,7 +3,7 @@
 #include "mpi.h"
 
 #define DEBUG 1            // comentar esta linha quando for medir tempo
-#define tam_vetor 40      // trabalho final com o valores 10.000, 100.000, 1.000.000
+#define tam_vetor 40      // trabalho final com o valores 10000, 100000, 1000000
 
 void bs(int n, int * vetor)
 {
