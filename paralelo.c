@@ -102,7 +102,7 @@ int main(int argc, char** argv)
 
         // // intercalo vetor inteiro
         vetor_auxiliar = interleaving(vetor, tam);
-        printf("\vetor intercalado: ");
+        printf("\n id: %d,vetor intercalado: ", id);
         for (i=0 ; i<tam; i++)                              /* sou o raiz, mostro vetor */
             printf("[%03d] ", vetor_auxiliar[i]);
     }
