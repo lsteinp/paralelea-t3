@@ -56,10 +56,13 @@ int main(int argc, char** argv)
     int tam = tam_vetor;
     int *vetor_auxiliar;
     int leaf;
+    int delta;
 
     MPI_Init(&argc, &argv);
     MPI_Comm_rank(MPI_COMM_WORLD, &id);
     MPI_Comm_size(MPI_COMM_WORLD, &n);
+
+    delta = n/
 
     if (id == 0) { //Raiz
         for (i=0 ; i<tam_vetor; i++)              /* init array with worst case for sorting */
@@ -80,7 +83,7 @@ int main(int argc, char** argv)
         MPI_Get_count(&Status, MPI_INT, &tam);  // descubro tamanho da mensagem recebida
         printf("\ntam: %d, pai: %d, id: %d ", tam, pai, id);
     }
-    if ( id >= n-2 ){
+    if ( id >= (n-1)/2 ){
         printf("\nconquisto: %d", id);
         leaf = 1;
         bs(tam, vetor);  // conquisto
