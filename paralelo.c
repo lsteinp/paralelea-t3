@@ -53,35 +53,42 @@ int main(int argc, char** argv)
     double time;
     int pai;
     MPI_Status Status; /* Status de retorno */
-    int tam;
 
     MPI_Init(&argc, &argv);
     MPI_Comm_rank(MPI_COMM_WORLD, &id);
     MPI_Comm_size(MPI_COMM_WORLD, &n);
-    printf("test");
+
+    printf("id: %d n: %d", id, n);
+
     if (id == 0) { //Raiz
         for (i=0 ; i<tam_vetor; i++)              /* init array with worst case for sorting */
             vetor[i] = tam_vetor-i;
-        // #ifdef DEBUG
-        //     printf("\nunsorted Array: ");
-        //     for (i=0 ; i<tam_vetor; i++)              /* print unsorted array */
-        //         printf("[%03d] ", vetor[i]);
-        // #endif
+        #ifdef DEBUG
+            printf("\nunsorted Array: ");
+            for (i=0 ; i<tam_vetor; i++)              /* print unsorted array */
+                printf("[%03d] ", vetor[i]);
+        #endif
     }
     else {
-        printf("entrou filho");
-        if (id % 2){ //pega o id do pai
+        printf("\nentrou filho");
+        if (id % 2){
+            printf("\nid percent 2");
             pai = (id - 1)/2;
         } else {
+            printf("\nelse");
             pai = (id - 2)/2;
         }
-        MPI_Recv(vetor, tam_vetor, MPI_INT, pai, 2, MPI_COMM_WORLD, &Status);
-        MPI_Get_count(&Status, MPI_INT, &tam);  // descubro tamanho da mensagem recebida
+        printf("\npassou do pai");
+        printf("\nmeu pai: %d", pai);
+        printf("id: %d pai: %d", id, pai);
 
-        printf("\ntam_vetor: %d, pai: %d, id: %d ", tam, pai, id);
+        // printf("\nid: %d , meu pai eh: %d", id, pai);
+        MPI_Recv(vetor, tam_vetor, MPI_INT, pai, 2, MPI_COMM_WORLD, &Status);
+        MPI_Get_count(&Status, MPI_INT, tam_vetor);  // descubro tamanho da mensagem recebida
+        printf("\ntam_vetor: %d, pai: %d, id: %d ", tam_vetor, pai, id);
     }
     if ( id >= n-2 ){
-        printf("\nconquisto\n");
+        printf("\nconquisto");
         bs(tam_vetor, vetor);  // conquisto
     }
     else {
