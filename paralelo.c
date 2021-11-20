@@ -88,6 +88,7 @@ int main(int argc, char** argv)
     }
     else {
         printf("\ndividir: %d", id);
+        leaf = 0;
         // // dividir
         // // quebrar em duas partes e mandar para os filhos
         int left = (id * 2) + 1;
