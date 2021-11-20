@@ -104,21 +104,21 @@ int main(int argc, char** argv)
         // // intercalo vetor inteiro
         vetor_auxiliar = interleaving(vetor, tam);
         // if(id == 0){
-            printf("\nid: %d,vetor normal: ", id);
-            for (i=0 ; i<tam; i++)                              /* sou o raiz, mostro vetor */
-                printf("[%03d] ", vetor[i]);
-            printf("\n\n");
-            printf("\n id: %d,vetor intercalado: ", id);
-            for (i=0 ; i<tam; i++)                              /* sou o raiz, mostro vetor */
-                printf("[%03d] ", vetor_auxiliar[i]);
+            // printf("\nid: %d,vetor normal: ", id);
+            // for (i=0 ; i<tam; i++)                              /* sou o raiz, mostro vetor */
+            //     printf("[%03d] ", vetor[i]);
+            // printf("\n\n");
+            // printf("\n id: %d,vetor intercalado: ", id);
+            // for (i=0 ; i<tam; i++)                              /* sou o raiz, mostro vetor */
+            //     printf("[%03d] ", vetor_auxiliar[i]);
         // }
     }
     if ( id !=0 ){
         if (leaf){ // sou folha, manda o array que ordenei
-        printf("\nsou folha: %d,retornando array ordenado para: %d\n", id, pai);
+        // printf("\nsou folha: %d,retornando array ordenado para: %d\n", id, pai);
             MPI_Send(&vetor, tam, MPI_INT, pai, 2, MPI_COMM_WORLD);
         } else { // nao sou folha, mando o array intercalado
-            printf("\nnao sou folha: %d,retornando array ordenado para: %d\n", id, pai);
+            // printf("\nnao sou folha: %d,retornando array ordenado para: %d\n", id, pai);
             MPI_Send(vetor_auxiliar, tam, MPI_INT, pai, 2, MPI_COMM_WORLD);
         }
     }
