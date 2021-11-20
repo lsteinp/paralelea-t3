@@ -76,6 +76,7 @@ int main(int argc, char** argv)
         } else {
             pai = (id - 2)/2;
         }
+        printf("meu pai: %d", pai)
         printf("\nsou filho, id: %d , meu pai eh: %d", id, pai);
         MPI_Recv(vetor, tam_vetor, MPI_INT, pai, 2, MPI_COMM_WORLD, &Status);
         MPI_Get_count(&Status, MPI_INT, tam_vetor);  // descubro tamanho da mensagem recebida
