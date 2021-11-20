@@ -71,9 +71,9 @@ int main(int argc, char** argv)
     }
     else {
         if (id%2){
-            pai = (id - 2)/2;
-        } else {
             pai = (id - 1)/2;
+        } else {
+            pai = (id - 2)/2;
         }
         printf("\nsou filho, id: %d , meu pai eh: %d", i, pai);
         MPI_Recv(vetor, tam_vetor, MPI_INT, pai, 2, MPI_COMM_WORLD, &Status);
