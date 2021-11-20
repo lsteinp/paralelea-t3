@@ -80,7 +80,9 @@ int main(int argc, char** argv)
         }
         printf("\npassou do pai");
         printf("\nmeu pai: %d", pai);
-        printf("\nsou filho, id: %d , meu pai eh: %d", id, pai);
+        printf("id: %d pai: %d", id, pai);
+
+        // printf("\nid: %d , meu pai eh: %d", id, pai);
         MPI_Recv(vetor, tam_vetor, MPI_INT, pai, 2, MPI_COMM_WORLD, &Status);
         MPI_Get_count(&Status, MPI_INT, tam_vetor);  // descubro tamanho da mensagem recebida
         printf("\ntam_vetor: %d, pai: %d, id: %d ", tam_vetor, pai, id);
