@@ -102,6 +102,9 @@ int main(int argc, char** argv)
 
         // // intercalo vetor inteiro
         vetor_auxiliar = interleaving(vetor, tam);
+        printf("\vetor intercalado: ");
+        for (i=0 ; i<tam; i++)                              /* sou o raiz, mostro vetor */
+            printf("[%03d] ", vetor_auxiliar[i]);
     }
     if ( id !=0 ){
         if (leaf){ // sou folha, manda o array que ordenei
