@@ -80,7 +80,7 @@ int main(int argc, char** argv)
         MPI_Get_count(&Status, MPI_INT, &tam);  // descubro tamanho da mensagem recebida
         printf("\ntam: %d, pai: %d, id: %d ", tam, pai, id);
     }
-    if ( id != 0 & id >= n-2 ){
+    if ( id >= n-2 ){
         printf("\nconquisto");
         leaf = 1;
         bs(tam, vetor);  // conquisto
@@ -102,6 +102,7 @@ int main(int argc, char** argv)
         vetor_auxiliar = interleaving(vetor, tam);
     }
     if ( id !=0 ){
+        printf("sou: %d,retornando array ordenado para: %d", id, pai)
         if (leaf){ // sou folha, manda o array que ordenei
             MPI_Send(&vetor, tam, MPI_INT, pai, 2, MPI_COMM_WORLD);
         } else { // nao sou folha, mando o array intercalado
