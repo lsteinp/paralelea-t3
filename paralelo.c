@@ -70,6 +70,7 @@ int main(int argc, char** argv)
         #endif
     }
     else {
+        prinf("\entrou filho");
         if (id%2){
             pai = (id - 1)/2;
         } else {
