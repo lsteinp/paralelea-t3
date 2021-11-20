@@ -114,10 +114,10 @@ int main(int argc, char** argv)
             for (i=0 ; i<tam; i++)
                 printf("[%03d] ", vetor_auxiliar[i]);
 
-            time2 = MPI_Wtime();
-            printf("\nsize: %d", tam);
-            printf("\ntime: %f\n", time2-time1);
         #endif
+        time2 = MPI_Wtime();
+        printf("\nsize: %d", tam);
+        printf("\ntime: %f\n", time2-time1);
     }
 
     MPI_Finalize();
