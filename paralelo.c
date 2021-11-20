@@ -81,12 +81,12 @@ int main(int argc, char** argv)
         printf("\ntam: %d, pai: %d, id: %d ", tam, pai, id);
     }
     if ( id >= n-2 ){
-        printf("\nconquisto");
+        printf("\nconquisto: %d", id);
         leaf = 1;
         bs(tam, vetor);  // conquisto
     }
     else {
-        printf("\ndividir");
+        printf("\ndividir: %d", id);
         // // dividir
         // // quebrar em duas partes e mandar para os filhos
         int left = (id * 2) + 1;
