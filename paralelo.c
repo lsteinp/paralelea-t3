@@ -53,12 +53,13 @@ int main(int argc, char** argv)
     double time;
     int pai;
     MPI_Status Status; /* Status de retorno */
+    int tam = tam_vetor;
+    int *vetor_auxiliar;
+    int leaf;
 
     MPI_Init(&argc, &argv);
     MPI_Comm_rank(MPI_COMM_WORLD, &id);
     MPI_Comm_size(MPI_COMM_WORLD, &n);
-
-    printf("id: %d n: %d", id, n);
 
     if (id == 0) { //Raiz
         for (i=0 ; i<tam_vetor; i++)              /* init array with worst case for sorting */
@@ -70,26 +71,19 @@ int main(int argc, char** argv)
         #endif
     }
     else {
-        printf("\nentrou filho");
         if (id % 2){
-            printf("\nid percent 2");
             pai = (id - 1)/2;
         } else {
-            printf("\nelse");
             pai = (id - 2)/2;
         }
-        printf("\npassou do pai");
-        printf("\nmeu pai: %d", pai);
-        printf("id: %d pai: %d", id, pai);
-
-        // printf("\nid: %d , meu pai eh: %d", id, pai);
-        MPI_Recv(vetor, tam_vetor, MPI_INT, pai, 2, MPI_COMM_WORLD, &Status);
-        MPI_Get_count(&Status, MPI_INT, tam_vetor);  // descubro tamanho da mensagem recebida
-        printf("\ntam_vetor: %d, pai: %d, id: %d ", tam_vetor, pai, id);
+        MPI_Recv(vetor, tam, MPI_INT, pai, 1, MPI_COMM_WORLD, &Status);
+        MPI_Get_count(&Status, MPI_INT, &tam);  // descubro tamanho da mensagem recebida
+        printf("\ntam: %d, pai: %d, id: %d ", tam, pai, id);
     }
-    if ( id >= n-2 ){
+    if ( id != 0 & id >= n-2 ){
         printf("\nconquisto");
-        bs(tam_vetor, vetor);  // conquisto
+        leaf = 1;
+        bs(tam, vetor);  // conquisto
     }
     else {
         printf("\ndividir");
@@ -97,32 +91,30 @@ int main(int argc, char** argv)
         // // quebrar em duas partes e mandar para os filhos
         int left = (id * 2) + 1;
         int right = (id * 2) + 2;
-        MPI_Send(&vetor[0],tam_vetor/2, MPI_INT, left, 1, MPI_COMM_WORLD);
-        MPI_Send(&vetor[tam_vetor/2],tam_vetor/2,MPI_INT, right, 1, MPI_COMM_WORLD);
+        MPI_Send(&vetor[0],tam/2, MPI_INT, left, 1, MPI_COMM_WORLD);
+        MPI_Send(&vetor[tam/2],tam/2,MPI_INT, right, 1, MPI_COMM_WORLD);
 
         // // receber dos filhos
-
-
-        MPI_Recv(&vetor[0], tam_vetor/2, MPI_INT, left, 2, MPI_COMM_WORLD, &Status);
-        MPI_Recv(&vetor[tam_vetor/2], tam_vetor/2, MPI_INT, right, 2, MPI_COMM_WORLD, &Status);
-        // MPI_Recv ( &vetor[0], filho esquerda);
-        // MPI_Recv ( &vetor[tam_vetor/2], filho direita);
+        MPI_Recv(&vetor[0], tam/2, MPI_INT, left, 2, MPI_COMM_WORLD, &Status);
+        MPI_Recv(&vetor[tam/2], tam/2, MPI_INT, right, 2, MPI_COMM_WORLD, &Status);
 
         // // intercalo vetor inteiro
-        // vetor = interleaving(vetor, tam_vetor/2);
+        vetor_auxiliar = interleaving(vetor, tam);
     }
     if ( id !=0 ){
-        printf("\nSEND");
-        MPI_Send(&vetor, tam_vetor, MPI_INT, pai, 1, MPI_COMM_WORLD);
-        // MPI_Send ( vetor, pai, tam_vetor );  // tenho pai, retorno vetor ordenado pra ele
+        if (leaf){ // sou folha, manda o array que ordenei
+            MPI_Send(&vetor, tam, MPI_INT, pai, 2, MPI_COMM_WORLD);
+        } else { // nao sou folha, mando o array intercalado
+            MPI_Send(&vetor_auxiliar, tam, MPI_INT, pai, 2, MPI_COMM_WORLD);
+        }
     }
     else {
         printf("\nsorted Array: ");
-        for (i=0 ; i<tam_vetor; i++)                              /* sou o raiz, mostro vetor */
-            printf("[%03d] ", vetor[i]);
+        for (i=0 ; i<tam; i++)                              /* sou o raiz, mostro vetor */
+            printf("[%03d] ", vetor_auxiliar[i]);
 
         time += MPI_Wtime();
-        printf("\nsize: %d", tam_vetor);
+        printf("\nsize: %d", tam);
         printf("\ntime: %f\n", MPI_Wtime());
     }
 
