@@ -108,13 +108,16 @@ int main(int argc, char** argv)
         }
     }
     else {// sou raiz, mostrar o vetor e o tempo de execução
-        printf("\nsorted Array: ");
-        for (i=0 ; i<tam; i++)
-            printf("[%03d] ", vetor_auxiliar[i]);
 
-        time2 = MPI_Wtime();
-        printf("\nsize: %d", tam);
-        printf("\ntime: %f\n", time2-time1);
+        #ifdef DEBUG
+            printf("\nsorted Array: ");
+            for (i=0 ; i<tam; i++)
+                printf("[%03d] ", vetor_auxiliar[i]);
+
+            time2 = MPI_Wtime();
+            printf("\nsize: %d", tam);
+            printf("\ntime: %f\n", time2-time1);
+        #endif
     }
 
     MPI_Finalize();
