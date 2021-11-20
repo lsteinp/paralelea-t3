@@ -50,7 +50,7 @@ int main(int argc, char** argv)
     int i;
     int id;            /* Identificador do processo */
     int n;             /* Numero de processos */
-    double time;
+    double time1, time2;
     int pai;
     MPI_Status Status; /* Status de retorno */
     int tam = tam_vetor;
@@ -61,6 +61,7 @@ int main(int argc, char** argv)
     MPI_Init(&argc, &argv);
     MPI_Comm_rank(MPI_COMM_WORLD, &id);
     MPI_Comm_size(MPI_COMM_WORLD, &n);
+    time1 = MPI_Wtime();
 
     if (id == 0) { //Raiz
         for (i=0 ; i<tam_vetor; i++)              /* init array with worst case for sorting */
@@ -102,9 +103,14 @@ int main(int argc, char** argv)
 
         // // intercalo vetor inteiro
         vetor_auxiliar = interleaving(vetor, tam);
-        printf("\n id: %d,vetor intercalado: ", id);
-        for (i=0 ; i<tam; i++)                              /* sou o raiz, mostro vetor */
-            printf("[%03d] ", vetor_auxiliar[i]);
+        if(id == 0){
+            printf("\nvetor normal: ");
+            for (i=0 ; i<tam; i++)                              /* sou o raiz, mostro vetor */
+                printf("[%03d] ", vetor_auxiliar[i]);
+            printf("\n id: %d,vetor intercalado: ", id);
+            for (i=0 ; i<tam; i++)                              /* sou o raiz, mostro vetor */
+                printf("[%03d] ", vetor_auxiliar[i]);
+        }
     }
     if ( id !=0 ){
         if (leaf){ // sou folha, manda o array que ordenei
@@ -120,9 +126,9 @@ int main(int argc, char** argv)
         for (i=0 ; i<tam; i++)                              /* sou o raiz, mostro vetor */
             printf("[%03d] ", vetor_auxiliar[i]);
 
-        time += MPI_Wtime();
+        time2 = MPI_Wtime();
         printf("\nsize: %d", tam);
-        printf("\ntime: %f\n", MPI_Wtime());
+        printf("\ntime: %f\n", time2-time1);
     }
 
 
