@@ -72,14 +72,14 @@ int main(int argc, char** argv)
     else {
         printf("\nentrou filho");
         if (id % 2){
-            printf("id percent 2");
+            printf("\nid percent 2");
             pai = (id - 1)/2;
         } else {
-            printf("else");
+            printf("\nelse");
             pai = (id - 2)/2;
         }
-        printf("passou do pai");
-        printf("meu pai: %d", pai);
+        printf("\npassou do pai");
+        printf("\nmeu pai: %d", pai);
         printf("\nsou filho, id: %d , meu pai eh: %d", id, pai);
         MPI_Recv(vetor, tam_vetor, MPI_INT, pai, 2, MPI_COMM_WORLD, &Status);
         MPI_Get_count(&Status, MPI_INT, tam_vetor);  // descubro tamanho da mensagem recebida
