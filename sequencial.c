@@ -30,7 +30,7 @@ int main(int argc, char** argv)
     int i;
     int id;            /* Identificador do processo */
     int n;             /* Numero de processos */
-    double time;
+    double time1, time2;
     time1 = MPI_Wtime();
 
     for (i=0 ; i<ARRAY_SIZE; i++)              /* init array with worst case for sorting */
