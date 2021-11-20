@@ -119,7 +119,7 @@ int main(int argc, char** argv)
             MPI_Send(&vetor, tam, MPI_INT, pai, 2, MPI_COMM_WORLD);
         } else { // nao sou folha, mando o array intercalado
             printf("\nnao sou folha: %d,retornando array ordenado para: %d\n", id, pai);
-            MPI_Send(&vetor_auxiliar, tam, MPI_INT, pai, 2, MPI_COMM_WORLD);
+            MPI_Send(vetor_auxiliar, tam, MPI_INT, pai, 2, MPI_COMM_WORLD);
         }
     }
     else {
