@@ -70,12 +70,16 @@ int main(int argc, char** argv)
         #endif
     }
     else {
-        printf("\nsou filho, id: %d ", id);
+        if (id%2){
+            pai = (id - 2)/2;
+        } else {
+            pai = (id - 1)/2;
+        }
+        printf("\nsou filho, id: %d , meu pai eh: %d", i, pai);
         MPI_Recv(vetor, tam_vetor, MPI_INT, pai, 2, MPI_COMM_WORLD, &Status);
         MPI_Get_count(&Status, MPI_INT, tam_vetor);  // descubro tamanho da mensagem recebida
         printf("\ntam_vetor: %d, pai: %d, id: %d ", tam_vetor, pai, id);
     }
-    printf("\naqui");
     if ( id >= n-2 ){
         printf("\nconquisto");
         bs(tam_vetor, vetor);  // conquisto
