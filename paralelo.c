@@ -106,7 +106,7 @@ int main(int argc, char** argv)
         if(id == 0){
             printf("\nvetor normal: ");
             for (i=0 ; i<tam; i++)                              /* sou o raiz, mostro vetor */
-                printf("[%03d] ", vetor_auxiliar[i]);
+                printf("[%03d] ", vetor[i]);
             printf("\n id: %d,vetor intercalado: ", id);
             for (i=0 ; i<tam; i++)                              /* sou o raiz, mostro vetor */
                 printf("[%03d] ", vetor_auxiliar[i]);
