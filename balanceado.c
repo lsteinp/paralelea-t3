@@ -111,11 +111,6 @@ int main(int argc, char** argv)
         MPI_Recv(&vetor[0], delta, MPI_INT, left, 2, MPI_COMM_WORLD, &Status);
         MPI_Recv(&vetor[delta], delta, MPI_INT, right, 2, MPI_COMM_WORLD, &Status);
 
-
-
-        printf("\nvetor pos recieve: ");
-        for (i=0 ; i<tam; i++)
-            printf("[%03d] ", vetor[i]);
         // intercalo vetor inteiro
         vetor_auxiliar = interleaving(vetor, tam);
     }
