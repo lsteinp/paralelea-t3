@@ -62,8 +62,6 @@ int main(int argc, char** argv)
 
     int delta = tam_vetor/n;
     int rest = tam_vetor % delta;
-    printf("\n delta: %d", delta);
-    // int subVetor[delta];
     time1 = MPI_Wtime();
 
     if (id == 0) { //Raiz
@@ -85,12 +83,10 @@ int main(int argc, char** argv)
         MPI_Get_count(&Status, MPI_INT, &tam);  // descubro tamanho da mensagem recebida
     }
     if ( id >= (n-1)/2 ){//valido se sou folha para conquistar
-        printf("\nconquisto: %d", id);
         leaf = 1;
         bs(tam, vetor);  // conquisto
     }
     else {
-        printf("\ndivido: %d", id);
         // dividir
 
         //retiro uma parte para mim
