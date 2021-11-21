@@ -111,10 +111,6 @@ int main(int argc, char** argv)
         } else {
             bs(delta, &vetor[delta*2]);
         }
-        printf("\narrumou o proprio delta: ");
-        for (i=0 ; i<tam; i++)
-            printf("[%03d] ", vetor[i]);
-
         // receber dos filhos
         MPI_Recv(&vetor[0], delta, MPI_INT, left, 2, MPI_COMM_WORLD, &Status);
         MPI_Recv(&vetor[delta], delta, MPI_INT, right, 2, MPI_COMM_WORLD, &Status);
