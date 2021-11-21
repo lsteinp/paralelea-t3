@@ -88,18 +88,12 @@ int main(int argc, char** argv)
     }
     else {
         // dividir
-
-        //retiro uma parte para mim
-        // int aux[delta] = &vetor[0];
-
-        // quebro o restante e mandar para os filhos
+        // mando para os meus filhos a parte deles, tirando a minha
         int left = (id * 2) + 1;
         int right = (id * 2) + 2;
 
-
-        //envio o resto
-        MPI_Send(&vetor[0], delta, MPI_INT, left, 1, MPI_COMM_WORLD);
-        MPI_Send(&vetor[delta], delta,MPI_INT, right, 1, MPI_COMM_WORLD);
+        MPI_Send(&vetor[0], tam-delta/2, MPI_INT, left, 1, MPI_COMM_WORLD);
+        MPI_Send(&vetor[delta], tam-delta/2,MPI_INT, right, 1, MPI_COMM_WORLD);
 
         //ordeno minha parte
         if(id ==0){
@@ -108,8 +102,8 @@ int main(int argc, char** argv)
             bs(delta, &vetor[delta*2]);
         }
         // receber dos filhos
-        MPI_Recv(&vetor[0], delta, MPI_INT, left, 2, MPI_COMM_WORLD, &Status);
-        MPI_Recv(&vetor[delta], delta, MPI_INT, right, 2, MPI_COMM_WORLD, &Status);
+        MPI_Recv(&vetor[0], tam-delta/2, MPI_INT, left, 2, MPI_COMM_WORLD, &Status);
+        MPI_Recv(&vetor[delta], tam-delta/2, MPI_INT, right, 2, MPI_COMM_WORLD, &Status);
 
         // intercalo vetor inteiro
         vetor_auxiliar = interleaving(vetor, tam);
